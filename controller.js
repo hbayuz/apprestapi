@@ -9,12 +9,26 @@ exports.index = function(req,res){
 
 //menampilkan semua data mahasiswa
 exports.tampilsemuamahasiswa = function(req,res){
-    connection.query('SELECT * FROM MAHASISWA', function(error, rows, field){
+    connection.query('SELECT * FROM mahasiswa', function(error, rows, field){
         if(error){
-            connection.log(error);
+            console.log(error);
         }
         else {
             response.ok(rows, res)
         }
     });
+};
+
+//menampilkan semua data mahasiswa berdasarkan id
+exports.tampilberdasarkanid = function(req,res){
+    let id = req.params.id;
+    connection.query('SELECT * FROM mahasiswa WHERE id_mahasiswa = ?', [id],
+        function(error, rows, field){
+            if(error){
+                console.log(error);
+            }
+            else {
+                response.ok(rows, res);
+            }
+        });
 };
