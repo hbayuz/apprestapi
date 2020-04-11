@@ -34,7 +34,7 @@ exports.tampilberdasarkanid = function (req, res) {
 };
 
 //menambahkan data mahasiswa
-exports.tambahmahasiswa = function (req, res) {
+exports.tambahMahasiswa = function (req, res) {
     var nim = req.body.nim;
     var nama = req.body.nama;
     var jurusan = req.body.jurusan;
@@ -52,7 +52,7 @@ exports.tambahmahasiswa = function (req, res) {
 };
 
 //mengubah data berdasarkan ID mahasiswa
-exports.ubahmahasiswa = function (req, res) {
+exports.ubahMahasiswa = function (req, res) {
     var id = req.body.id_mahasiswa;
     var nim = req.body.nim;
     var nama = req.body.nama;
@@ -67,4 +67,18 @@ exports.ubahmahasiswa = function (req, res) {
                 response.ok("Berhasil Mengubah Data", res)
             }
         });
+};
+
+//menghapus data berdasarkan ID
+exports.hapusMahasiswa = function(req,res){
+    var id = req.body.id_mahasiswa;
+    connection.query('DELETE FROM mahasiswa WHERE id_mahasiswa=?', [id],
+    function (error, rows, field) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            response.ok("Berhasil Menghapus  Data", res)
+        }
+    });
 };
