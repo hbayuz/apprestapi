@@ -1,6 +1,6 @@
 var connection = require('../koneksi');
 var mysql = require('mysql');
-var md5 = require('MD5');
+var md5 = require('md5');
 var response = require('../res');
 var jwt = require('jsonwebtoken');
 var config = require('../config/secret');
@@ -16,16 +16,16 @@ exports.registrasi = function(req,res) {
         tanggal_daftar: new Date()
     }
 
-    var query = "SELECT email FROM ?? WHERE ??";
+    var query = "SELECT email FROM ?? WHERE ??=?";
     var table = ["user", "email", post.email];
 
-    query = mysql.format(query, table);
+    query = mysql.format(query,table);
 
     connection.query(query, function(error, rows) {
         if(error){
             console.log(error);
         }else {
-            if(rows.lenght == 0){
+            if(rows.length == 0){
                 var query = "INSERT INTO ?? SET ?";
                 var table = ["user"];
                 query = mysql.format(query, table);
@@ -33,12 +33,12 @@ exports.registrasi = function(req,res) {
                     if(error){
                         console.log(error);
                     }else {
-                        response.ok("Berhasil menambahkan data User Baru!", res);
+                        response.ok("Berhasil menambahkan data user baru", res);
                     }
                 });
             }else {
-                response.ok("Email Sudah Terdaftar! Silahkan Gunakan Email yang lain!");
+                response.ok("Email sudah terdaftar!",res);
             }
         }
-    });
+    })
 }
