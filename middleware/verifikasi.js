@@ -4,10 +4,10 @@ const config = require('../config/secret');
 function verifikasi(){
     return function(req, rest, next){
         var role = req.body.role;
-        //cek authorization header
-        var tokenwithBearer = req.header.authorization;
-        if(tokenwithBearer) {
-            var token = tokenwithBearer.split (' ')[1];
+        //cek authorizzation header
+        var tokenWithBearer = req.headers.authorization;
+        if(tokenWithBearer) {
+            var token = tokenWithBearer.split(' ')[1];
             
             //verifikasi
             jwt.verify(token, config.secret, function(err, decoded){
@@ -18,7 +18,7 @@ function verifikasi(){
                         req.auth = decoded;
                         next();
                     }else {
-                        return rest.status(401).send({auth:false, message:'Gagal Mengauthorisasi role anda!'});
+                        return rest.status(401).send({auth:false, message:'Gagal mengotorisasi role anda!'});
                     }
                 }
             });
