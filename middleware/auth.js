@@ -62,6 +62,7 @@ exports.login = function (req, res) {
                 var token = jwt.sign({ rows }, config.secret, {
                     expiresIn: 1500
                 });
+
                 id_user = rows[0].id;
 
                 var data = {
@@ -92,4 +93,8 @@ exports.login = function (req, res) {
         }
 
     });
+}
+
+exports.halamanrahasia = function(req,res){
+    response.ok("Halaman ini hanya untuk user dengan role = 2");
 }
